@@ -1,5 +1,5 @@
 import imageMobile from '../assets/images/image-web-3-mobile.jpg'
-import imageDesktop from '../assets/images/image-web-3-desktop.jpg'
+import imageDesktop from '../assets/images/image-web-3-desktop-.jpg'
 
 export const MainArticle = () => {
   return (
@@ -7,7 +7,7 @@ export const MainArticle = () => {
       <picture className='block  h-full'>
         <source media='(max-width: 600px)' srcSet={imageMobile} />
         <source media='(min-width: 641px)' srcSet={imageDesktop} />
-        <img src={imageMobile} alt="image" className=' h-full object-cover'/>
+        <img src={imageDesktop} alt="image" className=' rounded-[10px] h-full object-cover'/>
       </picture>
 
     </section>
