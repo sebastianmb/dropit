@@ -2,26 +2,18 @@ import { useEffect, useState } from "react"
 
 import { Article } from "./Article"
 
-import img1 from '../assets/images/image-retro-pcs.jpg'
-import img2 from '../assets/images/image-top-laptops.jpg'
-import img3 from '../assets/images/image-gaming-growth.jpg'
+import img1 from '../assets/images/schedule.png'
+import img2 from '../assets/images/route.png'
+import img3 from '../assets/images/salary.png'
 
 
-//
-const apiKey = 'a72213c8e55c47188ee952f90113dd8b'
-//   
+  
 
 export const ArticlesContainer = () => {
 
-  const [articles, setArticles] = useState([])
 
-  useEffect(()=>{
-    fetch(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`)
-    .then(res => res.json())
-    .then(data => setArticles(data.articles))
-  }, [])
   return (
-    <section className="md:flex md:flex-wrap md:place-content-between md:gap-10 md:justify-center"> 
+    <section className="text-cyan-900 md:flex md:flex-wrap md:place-content-between md:gap-10 md:justify-center"> 
 
     {
       // articles.map(article => 
@@ -36,21 +28,21 @@ export const ArticlesContainer = () => {
 
       <Article
         img={img1}
-        number='01'
-        title='Reviving Retro PCs'
-        text='What happens when old PCs are given modern upgrades?'
+        number='Nos ajustamos a tu tiempo'
+        title='Agendamiento flexible para tus necesidades.'
+        
       />
       <Article
         img={img2}
-        number='02'
-        title='Top 10 Laptops of 2022'
-        text='Our best picks for various needs and budgets.'
+        number='Rastreo en tiempo real'
+        title='Monitorea en vivo el progreso y ubicación'
+        
       />
       <Article
         img={img3}
-        number='03'
-        title='The Growth of Gaming'
-        text='How the pandemic has sparked fresh opportunities.'
+        number='Precio más económico'
+        title='Ofrecemos tarifas competitivas que se ajustan a tu presupuesto'
+        
       />
 
     </section>
