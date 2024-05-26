@@ -2,17 +2,24 @@ import { Header } from "./components/Header"
 import { MainArticle } from "./components/MainArticle"
 import { NewContainer } from "./components/NewContainer"
 import { ArticlesContainer } from "./components/ArticlesContainer"
+import { Login } from "./components/Login"
+import { Home } from "./components/Home"
+
+import { Routes, Route } from "react-router-dom"
+
+
+
 
 export function App() {
   return (
-    <main className="px-4 pt-6 pb-3 font-Inter lg:px-40 lg:pt-6" >
-      <Header/>
-      <div className="md:flex md:gap-40 md:mb-10">
-        <NewContainer />
-        <MainArticle />
+    <>
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/login" element={<Login/>}/>
+
         
-      </div>
-      <ArticlesContainer />
-    </main>
+
+      </Routes>
+    </>
   )
 }
