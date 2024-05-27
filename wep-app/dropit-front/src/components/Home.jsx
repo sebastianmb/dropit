@@ -3,6 +3,8 @@ import { MainArticle } from "./MainArticle"
 import { NewContainer } from "./NewContainer"
 import { ArticlesContainer } from "./ArticlesContainer"
 
+import imageDesktop from '../assets/images/image-web-3-desktop-.jpg'
+
 
 
 
@@ -17,7 +19,7 @@ export function Home() {
         <Header />
         <div className="md:flex md:gap-40 md:mb-10">
           <NewContainer />
-          <MainArticle />
+          <MainArticle imagen={imageDesktop} />
 
         </div>
         <ArticlesContainer />

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Navbar } from './Navbar'
+
+import { Link } from 'react-router-dom';
 
 export const Login = () => {
   return (
@@ -26,9 +27,9 @@ export const Login = () => {
           Iniciar sesión
         </button>
         <div className='mt-4 text-center'>
-          <a href='#' className='text-blue-500 hover:underline'>
+          <Link to='/signup' className='text-blue-500 hover:underline'>
             Crear cuenta
-          </a>
+          </Link>
           <span className='mx-2 text-gray-400'>|</span>
           <a href='#' className='text-blue-500 hover:underline'>
             Recuperar contraseña
