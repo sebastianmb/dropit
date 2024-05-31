@@ -8,6 +8,8 @@ import SignUp from "./components/SignUp"
 
 import { Routes, Route } from "react-router-dom"
 
+import { RideBookingPanel } from "./components/RideBookingPanel"
+
 
 
 
@@ -19,6 +21,7 @@ export function App() {
         <Route path="/" element={<Home/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={<SignUp/>}/>
+        <Route path="/Panel" element={<RideBookingPanel/>}/>
 
         
 

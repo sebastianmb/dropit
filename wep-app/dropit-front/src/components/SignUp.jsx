@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { MainArticle } from './MainArticle';
 import { Link } from 'react-router-dom';
