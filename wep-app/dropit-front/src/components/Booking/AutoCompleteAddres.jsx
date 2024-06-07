@@ -3,13 +3,13 @@ import { useState } from 'react'
 
 function AutoCompleteAddres() {
 
-    const [source, setSource] = useState()
+    const [source, setSource] = useState('');
     const [addressList, setAddressList] = useState([])
 
     useEffect(() => {
         const delayDebounceFn = setTimeout(() => {
             getAddressList()
-        }, 1000)
+        }, 3000)
         return () => clearTimeout(delayDebounceFn)
     }, [source])
 
@@ -23,6 +23,8 @@ function AutoCompleteAddres() {
 
         const result=await res.json();
         setAddressList(result)
+        // Muestra la información en la consola
+        console.log('Direcciones obtenidas:', result);
 
     }
 
@@ -38,8 +40,8 @@ function AutoCompleteAddres() {
                 />
                  {addressList?.suggestions?
                 <div>
-                    {addressList?.suggestions.map((item, index) =>
-                        <h2>{item.full_address}</h2>
+                    {addressList?.suggestions.map((item) =>
+                        <h2 key={item.mapbox_id}>{item.full_address}</h2>
                     )}
                 </div>:null}
             </div>
