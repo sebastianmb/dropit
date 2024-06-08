@@ -30,7 +30,7 @@ function AutoCompleteAddres() {
 
     return (
         <div className='mt-5'>
-            <div>
+            <div className='relative'>
                 <label className='text-gray-400'>Where From?</label>
                 <input type="text"
                     className='bg-white p-1 border-[1px] w-full rounded-md outline-none
@@ -39,9 +39,11 @@ function AutoCompleteAddres() {
                     onChange={(e) => setSource(e.target.value)}
                 />
                  {addressList?.suggestions?
-                <div>
+                <div className='shadow-md p-1 rounded-md absolute w-full bg-white'>
                     {addressList?.suggestions.map((item) =>
-                        <h2 key={item.mapbox_id}>{item.full_address}</h2>
+                        <h2 className='p-3 hover:bg-gray-100 cursor-pointer'
+                        onClick={()=>{setSource(item.full_address);setAddressList([])}}
+                        key={item.mapbox_id}>{item.full_address}</h2>
                     )}
                 </div>:null}
             </div>
