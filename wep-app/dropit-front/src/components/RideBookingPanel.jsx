@@ -13,7 +13,7 @@ export const RideBookingPanel = ({ }) => {
                     <Booking/>
                 </div>
                 <div className="col-span-2 bg-red-100 ">
-                    Map
+                    GoogleMap
                 </div>
             </div>
             
