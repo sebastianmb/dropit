@@ -1,17 +1,53 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useState } from 'react'
 import locationIcon from '../../assets/images/location.png'; // Ruta al archivo SVG del icono de ubicación
 import destinationIcon from '../../assets/images/destination.png'; // Ruta al archivo SVG del icono de destino
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import { SourceContext } from '../../context/SourceContext.js';
+import { DestinationContext } from '../../context/DestinationContext.js';
 
 function AutoCompleteAddres() {
 
-    const [value, setValue] = useState(null);
-    
+
+    const [valueSource, setValueSource] = useState(null);
+    const [valueDestination, setValueDestination] = useState(null);
+    const { source, setSource } = useContext(SourceContext);
+    const { destination, setDestination } = useContext(DestinationContext);
+
     const googleApiKey = import.meta.env.VITE_GOOGLE_MAPS_APIKEY;
 
 
-    
+
+    const getLatAndLng = (place) => {
+
+        const placeId = place.value.place_id;
+        const service = new google.maps.places.PlacesService(document.createElement('div'));
+        service.getDetails({ placeId }, (place, status) => {
+            if (status === 'OK' && place.geometry && place.geometry.location) {
+                console.log(place.geometry.location.lng());
+                const newSource = {
+                    lat: place.geometry.location.lat(),
+                    lng: place.geometry.location.lng(),
+                    name: place.formatted_address,
+                    label: place.name
+                };
+                const newDestination={
+                    lat: place.geometry.location.lat(),
+                    lng: place.geometry.location.lng(),
+                    name: place.formatted_address,
+                    label: place.name
+                };
+                setSource(newSource)
+                setDestination(newDestination)
+                // Ahora puedes acceder a source y destination aquí
+                console.log('Nuevo source:', newSource);
+            }
+        })
+
+    }
+
+
+
 
     return (
         <div className='mt-5'>
@@ -21,48 +57,59 @@ function AutoCompleteAddres() {
                             focus:border-cyan-900'>
                     <img src={locationIcon} alt="Ubicación" className="h-4 w-4" />
 
-                    {/*<input type="text"
-                        className='bg-transparent w-full outline-none'
-                        value={source}
-                        onChange={(e) => setSource(e.target.value)}
-                    />*/}
                     <GooglePlacesAutocomplete
                         apiKey={googleApiKey}
                         selectProps={{
-                            value,
-                            onChange: setValue,
-                            placeholder:'Pickup Location',
-                            isClearable:true,
-                            className:'w-full',
-                            components:{
-                                DropdownIndicator:false
+                            valueSource,
+                            onChange: (place) => {
+                                getLatAndLng(place);
+                                setValueSource(place)
                             },
-                            styles:{
-                                control:(provide)=>({
+                            placeholder: 'Pickup Location',
+                            isClearable: true,
+                            className: 'w-full',
+                            components: {
+                                DropdownIndicator: false
+                            },
+                            styles: {
+                                control: (provide) => ({
                                     ...provide,
-                                    backgroundColor:'white',
-                                    border:'none'
+                                    backgroundColor: 'white',
+                                    border: 'none'
                                 })
                             }
-                          }}
+                        }}
                     />
                 </div>
-                {/*addressList?.suggestions ?
-                    <div className='shadow-md p-1 rounded-md absolute w-full bg-white'>
-                        {addressList?.suggestions.map((item) =>
-                            <h2 className='p-3 hover:bg-gray-100 cursor-pointer'
-                                onClick={() => { setSource(item.full_address); setAddressList([]) }}
-                                key={item.mapbox_id}>{item.full_address}</h2>
-                        )}
-                    </div> : null*/}
+
             </div>
             <div className='mt-3'>
                 <label className='text-gray-400'>Where To?</label>
                 <div className='flex items-center gap-4 bg-white p-1 border-[1px] w-full rounded-md outline-none
                             focus:border-cyan-900'>
                     <img src={destinationIcon} alt="Destino" className="h-4 w-4" />
-                    <input type="text"
-                        className='bg-transparent w-full outline-none'
+                    <GooglePlacesAutocomplete
+                        apiKey={googleApiKey}
+                        selectProps={{
+                            valueDestination,
+                            onChange: (place) => {
+                                getLatAndLng(place);
+                                setValueDestination(place)
+                            },
+                            placeholder: 'Pickup Location',
+                            isClearable: true,
+                            className: 'w-full',
+                            components: {
+                                DropdownIndicator: false
+                            },
+                            styles: {
+                                control: (provide) => ({
+                                    ...provide,
+                                    backgroundColor: 'white',
+                                    border: 'none'
+                                })
+                            }
+                        }}
                     />
                 </div>
 
