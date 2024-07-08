@@ -6,6 +6,7 @@ import { SourceContext } from "../context/SourceContext.js"
 import { useState } from "react"
 import { DestinationContext } from "../context/DestinationContext.js"
 import GoogleMapSection from "./GoogleMapSection.jsx"
+import { LoadScript } from "@react-google-maps/api"
 
 
 export const RideBookingPanel = ({ }) => {
@@ -14,6 +15,9 @@ export const RideBookingPanel = ({ }) => {
     return (
         <SourceContext.Provider value={{source,setSource}}>
             <DestinationContext.Provider value={{destination,setDestination}}>
+                <LoadScript 
+                libraries={['places']}
+                googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_APIKEY}>
         <main className="px-2  font-Inter  " >
             <Header />
             <div className="grid grid-cols-1 md:grid-cols-3">
@@ -26,6 +30,7 @@ export const RideBookingPanel = ({ }) => {
             </div>
             
         </main>
+        </LoadScript>
         </DestinationContext.Provider>
         </SourceContext.Provider>
     )

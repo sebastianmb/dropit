@@ -14,8 +14,7 @@ function AutoCompleteAddres() {
     const { source, setSource } = useContext(SourceContext);
     const { destination, setDestination } = useContext(DestinationContext);
 
-    const googleApiKey = import.meta.env.VITE_GOOGLE_MAPS_APIKEY;
-
+    
 
 
     const getLatAndLng = (place) => {
@@ -58,7 +57,7 @@ function AutoCompleteAddres() {
                     <img src={locationIcon} alt="Ubicación" className="h-4 w-4" />
 
                     <GooglePlacesAutocomplete
-                        apiKey={googleApiKey}
+                        
                         selectProps={{
                             valueSource,
                             onChange: (place) => {
@@ -89,7 +88,7 @@ function AutoCompleteAddres() {
                             focus:border-cyan-900'>
                     <img src={destinationIcon} alt="Destino" className="h-4 w-4" />
                     <GooglePlacesAutocomplete
-                        apiKey={googleApiKey}
+                        
                         selectProps={{
                             valueDestination,
                             onChange: (place) => {
