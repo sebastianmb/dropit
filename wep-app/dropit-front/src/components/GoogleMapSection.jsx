@@ -78,8 +78,7 @@ function GoogleMapSection() {
 
 
         setDirectionRoutePoints(result)
-        console.error(status)
-        console.log(result)
+        
         
       }
       else {
@@ -106,9 +105,9 @@ function GoogleMapSection() {
     <GoogleMap
       mapContainerStyle={containerStyle}
       center={center}
-      zoom={10}
-      onLoad={onLoad}
-      onUnmount={onUnmount}
+      zoom={11}
+      onLoad={map=>setMap(map)}
+      
       options={{ mapId: 'ff4d11015dfc5291' }}
     >
       {source.length != [] ? <Marker
@@ -157,7 +156,11 @@ function GoogleMapSection() {
       <DirectionsRenderer
         directions={directionRoutePoints}
         options={{
-
+            polylineOptions:{
+              strokeColor:'#000',
+              strokeWeight:5
+            },
+            suppressMarkers:true
         }}
       />
 
