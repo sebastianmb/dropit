@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { GoogleMap, Marker, MarkerF, useJsApiLoader } from '@react-google-maps/api';
+import { DirectionsRenderer, GoogleMap, Marker, MarkerF, OverlayView, useJsApiLoader } from '@react-google-maps/api';
 import { SourceContext } from "../context/SourceContext.js"
 import { DestinationContext } from '../context/DestinationContext.js';
 
@@ -31,10 +31,21 @@ function GoogleMapSection() {
   useEffect(() => {
     if (source?.length != [] && map) {
 
+      map.panTo(
+        {
+          lat: source.lat,
+          lng: source.lng
+        }
+      )
+
       setCenter({
         lat: source.lat,
         lng: source.lng
       })
+    }
+
+    if (source.length != [] && destination.length != []) {
+      directionRoute();
     }
   }, [source])
 
@@ -45,17 +56,38 @@ function GoogleMapSection() {
         lng: destination.lng
       })
     }
+
+    if (source.length != [] && destination.length != []) {
+      directionRoute();
+    }
   }, [destination])
 
 
 
-  //const googleApiKey = import.meta.env.VITE_GOOGLE_MAPS_APIKEY;
-  // const { isLoaded } = useJsApiLoader({
-  // id: 'google-map-script',
-  //googleMapsApiKey: googleApiKey
-  //})
-
   const [map, setMap] = React.useState(null)
+  const [directionRoutePoints, setDirectionRoutePoints] = useState([]);
+
+  const directionRoute = () => {
+    const DirectionsService = new google.maps.DirectionsService();
+    DirectionsService.route({
+      origin: { lat: source.lat, lng: source.lng },
+      destination: { lat: destination.lat, lng: destination.lng },
+      travelMode: google.maps.TravelMode.DRIVING
+    }, (result, status) => {
+      if (status === google.maps.DirectionsStatus.OK) {
+
+
+        setDirectionRoutePoints(result)
+        console.error(status)
+        console.log(result)
+        
+      }
+      else {
+        console.error('Error')
+
+      }
+    })
+  }
 
   const onLoad = React.useCallback(function callback(map) {
     // This is just an example of getting and using the map instance!!! don't just blindly copy!
@@ -88,7 +120,17 @@ function GoogleMapSection() {
             height: 20
           }
         }}
-      /> : null}
+      >
+        <OverlayView
+          position={{ lat: source.lat, lng: source.lng }}
+          mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+        >
+          <div className='p-2 bg-white font-bold inline-block'>
+            <p className='text-black text-[18px]'>{source.label}</p>
+          </div>
+        </OverlayView>
+
+      </Marker> : null}
 
 
       {destination.length != [] ? <Marker
@@ -100,9 +142,26 @@ function GoogleMapSection() {
             height: 20
           }
         }}
-      /> : null}
+      >
+        <OverlayView
+          position={{ lat: destination.lat, lng: destination.lng }}
+          mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+        >
+          <div className='p-2 bg-white font-bold inline-block'>
+            <p className='text-black text-[18px]'>{destination.label}</p>
+          </div>
+        </OverlayView>
 
-      <></>
+      </Marker> : null}
+        
+      <DirectionsRenderer
+        directions={directionRoutePoints}
+        options={{
+
+        }}
+      />
+
+
     </GoogleMap>
   )
 }

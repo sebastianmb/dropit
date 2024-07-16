@@ -14,32 +14,47 @@ function AutoCompleteAddres() {
     const { source, setSource } = useContext(SourceContext);
     const { destination, setDestination } = useContext(DestinationContext);
 
-    
 
 
-    const getLatAndLng = (place) => {
+
+    const getLatAndLngSource = (place) => {
 
         const placeId = place.value.place_id;
         const service = new google.maps.places.PlacesService(document.createElement('div'));
         service.getDetails({ placeId }, (place, status) => {
             if (status === 'OK' && place.geometry && place.geometry.location) {
-                console.log(place.geometry.location.lng());
+                
                 const newSource = {
                     lat: place.geometry.location.lat(),
                     lng: place.geometry.location.lng(),
                     name: place.formatted_address,
                     label: place.name
                 };
-                const newDestination={
+
+                setSource(newSource)
+                // Ahora puedes acceder a source y destination aquí
+                
+            }
+        })
+
+    }
+    const getLatAndLngDestination = (place) => {
+
+        const placeId = place.value.place_id;
+        const service = new google.maps.places.PlacesService(document.createElement('div'));
+        service.getDetails({ placeId }, (place, status) => {
+            if (status === 'OK' && place.geometry && place.geometry.location) {
+                
+                const newDestination = {
                     lat: place.geometry.location.lat(),
                     lng: place.geometry.location.lng(),
                     name: place.formatted_address,
                     label: place.name
                 };
-                setSource(newSource)
+
                 setDestination(newDestination)
                 // Ahora puedes acceder a source y destination aquí
-                console.log('Nuevo source:', newSource);
+                
             }
         })
 
@@ -57,11 +72,11 @@ function AutoCompleteAddres() {
                     <img src={locationIcon} alt="Ubicación" className="h-4 w-4" />
 
                     <GooglePlacesAutocomplete
-                        
+
                         selectProps={{
                             valueSource,
                             onChange: (place) => {
-                                getLatAndLng(place);
+                                getLatAndLngSource(place);
                                 setValueSource(place)
                             },
                             placeholder: 'Pickup Location',
@@ -88,11 +103,11 @@ function AutoCompleteAddres() {
                             focus:border-cyan-900'>
                     <img src={destinationIcon} alt="Destino" className="h-4 w-4" />
                     <GooglePlacesAutocomplete
-                        
+
                         selectProps={{
                             valueDestination,
                             onChange: (place) => {
-                                getLatAndLng(place);
+                                getLatAndLngDestination(place);
                                 setValueDestination(place)
                             },
                             placeholder: 'Pickup Location',
