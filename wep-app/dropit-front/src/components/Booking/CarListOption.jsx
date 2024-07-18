@@ -7,8 +7,10 @@ function CarListOption() {
     <div className='mt-5'>
       <h2 className='text-[22px] font-bold'>Recommeded</h2>
       {CarListData.map((item)=>(
-        <div>
-            <CarListItem car={item}/>
+        <div key={item.id}>
+            <CarListItem 
+            
+            car={item}/>
         </div>
       ))}
     </div>
