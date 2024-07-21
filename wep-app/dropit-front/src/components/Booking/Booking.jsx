@@ -35,7 +35,7 @@ export function Booking() {
             onClick={() => calculateDistance()}
           >Search</button>
         </div>
-        {distance ? <CarListOption /> : null}
+        {distance ? <CarListOption distance={distance} /> : null}
       </div>
 
     </div>
