@@ -2,6 +2,8 @@ import { NewArticle } from "./NewArticle"
 import locationIcon from '../assets/images/location.png'; // Ruta al archivo SVG del icono de ubicación
 import destinationIcon from '../assets/images/destination.png'; // Ruta al archivo SVG del icono de destino
 import { Link } from 'react-router-dom';
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+
 
 
 
@@ -35,9 +37,15 @@ export const NewContainer = () => {
               <img src={destinationIcon} alt="Destino" className="h-4 w-4" />
             </div>
           </div>
-          
-            <button className='bg-cyan-900 w-[170px] h-[40px] rounded-[10px]  text-OffWhite hover:bg-VeryDarkBlue '><Link to="/login">Ver precios</Link></button>
-          
+
+          <button className='bg-cyan-900 w-[170px] h-[40px] rounded-[10px]  text-OffWhite hover:bg-VeryDarkBlue '><Link to="/login">Ver precios</Link></button>
+          <SignedOut>
+            <SignInButton> cambio de texto</SignInButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+
         </div>
       </div>
     </aside>
