@@ -38,14 +38,8 @@ export const NewContainer = () => {
             </div>
           </div>
 
-          <button className='bg-cyan-900 w-[170px] h-[40px] rounded-[10px]  text-OffWhite hover:bg-VeryDarkBlue '><Link to="/login">Ver precios</Link></button>
-          <SignedOut>
-            <SignInButton> cambio de texto</SignInButton>
-          </SignedOut>
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
-
+          <button className='bg-cyan-900 w-[170px] h-[40px] rounded-[10px]  text-OffWhite hover:bg-VeryDarkBlue '><Link to="/Panel">Ver precios</Link></button>
+        
         </div>
       </div>
     </aside>

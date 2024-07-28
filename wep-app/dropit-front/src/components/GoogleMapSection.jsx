@@ -24,8 +24,8 @@ function GoogleMapSection() {
   const { destination, setDestination } = useContext(DestinationContext)
 
   const [center, setCenter] = useState({
-    lat: -3.745,
-    lng: -38.523
+    lat: 4.638662268473553,
+    lng: -74.07824294099393
   });
 
   useEffect(() => {

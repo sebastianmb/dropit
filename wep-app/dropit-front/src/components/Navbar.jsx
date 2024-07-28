@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 
 import burgerMenu from '../assets/images/icon-menu.svg'
 import closeBtn from '../assets/images/icon-menu-close.svg'
@@ -24,9 +25,17 @@ export const Navbar = () => {
           <a className='px-[12px] py-[10px] rounded-[30px] hover:bg-cyan-700' href="#">Mensajero</a>
         </li>
         <li className='mb-8 sm:mb-0'>
-          <button className='px-[12px] py-[10px] rounded-[30px] hover:bg-cyan-700' href="#">Registrate</button>
+          <SignedOut>
+            <SignInButton mode='modal' forceRedirectUrl='/Panel'>Registrarse</SignInButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+          {
+            //<button className='px-[12px] py-[10px] rounded-[30px] hover:bg-cyan-700' href="#">Registrate</button>
+          }
         </li>
-        
+
       </ul>
       <img className={`${menuClicked ? '' : 'hidden'} w-10 h-4 cursor-pointer sm:hidden`} src={burgerMenu} onClick={handleClick} alt="" />
     </>
