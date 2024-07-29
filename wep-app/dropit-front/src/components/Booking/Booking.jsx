@@ -7,6 +7,8 @@ import { SourceContext } from '../../context/SourceContext';
 import { DestinationContext } from '../../context/DestinationContext';
 import CarListOption from './CarListOption';
 
+import { DateTimePicker } from '@mui/x-date-pickers';
+
 
 
 export function Booking() {
@@ -29,6 +31,7 @@ export function Booking() {
     <div>
       <div className='p-5'>
         <h2 className=' text-[20px] font-semibold'>Get a ride</h2>
+        <DateTimePicker label="Basic date time picker" />
         <div className='border-[1px] p-5 rounded-md' style={{ height: screenHight }}>
           <AutoCompleteAddres />
           

@@ -10,13 +10,15 @@ import { Routes, Route } from "react-router-dom"
 
 import { RideBookingPanel } from "./components/RideBookingPanel"
 
-
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 
 
 export function App() {
   return (
     <>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/login" element={<Login/>}/>
@@ -26,6 +28,7 @@ export function App() {
         
 
       </Routes>
+      </LocalizationProvider>
     </>
   )
 }
