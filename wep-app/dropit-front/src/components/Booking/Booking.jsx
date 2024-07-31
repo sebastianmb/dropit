@@ -31,16 +31,17 @@ export function Booking() {
     <div>
       <div className='p-5'>
         <h2 className=' text-[20px] font-semibold'>Get a ride</h2>
-        <DateTimePicker label="Basic date time picker" />
+
         <div className='border-[1px] p-5 rounded-md' style={{ height: screenHight }}>
+          <DateTimePicker label="Escoja fecha y hora" />
           <AutoCompleteAddres />
-          
+
           <button className='p-3 bg-cyan-900 w-full mt-5 text-white rounded-lg'
             onClick={() => calculateDistance()}
           >Search</button>
           {distance ? <CarListOption distance={distance} /> : null}
         </div>
-        
+
       </div>
 
     </div>

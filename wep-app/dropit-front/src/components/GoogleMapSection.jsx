@@ -19,6 +19,8 @@ const containerStyle = {
 
 function GoogleMapSection() {
 
+  const [selectedLocation, setSelectedLocation] = useState(null);
+
 
   const { source, setSource } = useContext(SourceContext);
   const { destination, setDestination } = useContext(DestinationContext)
@@ -78,8 +80,8 @@ function GoogleMapSection() {
 
 
         setDirectionRoutePoints(result)
-        
-        
+
+
       }
       else {
         console.error('Error')
@@ -93,6 +95,7 @@ function GoogleMapSection() {
     const bounds = new window.google.maps.LatLngBounds(center);
     map.fitBounds(bounds);
 
+
     setMap(map)
   }, [])
 
@@ -103,13 +106,26 @@ function GoogleMapSection() {
 
   return (
     <GoogleMap
+
+
       mapContainerStyle={containerStyle}
       center={center}
       zoom={11}
-      onLoad={map=>setMap(map)}
-      
-      options={{ mapId: 'ff4d11015dfc5291' }}
+      onLoad={map => setMap(map)}
+
+      options={{
+        mapId: 'ff4d11015dfc5291',
+        gestureHandling: 'greedy'
+      }}
+
+
+      onClick={(e) => setSelectedLocation({ lat: e.latLng.lat(), lng: e.latLng.lng() })}
+
+
     >
+
+      {selectedLocation && <Marker position={selectedLocation} />}
+      
       {source.length != [] ? <Marker
         position={{ lat: source.lat, lng: source.lng }}
         icon={{
@@ -152,15 +168,15 @@ function GoogleMapSection() {
         </OverlayView>
 
       </Marker> : null}
-        
+
       <DirectionsRenderer
         directions={directionRoutePoints}
         options={{
-            polylineOptions:{
-              strokeColor:'#000',
-              strokeWeight:5
-            },
-            suppressMarkers:true
+          polylineOptions: {
+            strokeColor: '#000',
+            strokeWeight: 5
+          },
+          suppressMarkers: true
         }}
       />
 
