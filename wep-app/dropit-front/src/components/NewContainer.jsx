@@ -16,29 +16,11 @@ export const NewContainer = () => {
           <h2 className='text-[40px]  leading-none font-bold sm:text-[58px]'>La app para enviar a cualquier lugar</h2>
         </div>
         <div className='flex flex-col  pt-2 '>
-          <p className='mb-10 text-[13px] sm:text-[17px] '>Solicita tu envío, elige el destino y relájate.</p>
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Punto de origen"
-              className="mb-4 p-2 border border-gray-300 rounded pl-10 w-full"
-            />
-            <div className="absolute left-3 top-3">
-              <img src={locationIcon} alt="Ubicación" className="h-4 w-4" />
-            </div>
-          </div>
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Punto de destino"
-              className="flex-1 mb-4 p-2 border border-gray-300 rounded pl-10 w-full"
-            />
-            <div className="absolute left-3 top-3">
-              <img src={destinationIcon} alt="Destino" className="h-4 w-4" />
-            </div>
-          </div>
-
-          <button className='bg-cyan-900 w-[170px] h-[40px] rounded-[10px]  text-OffWhite hover:bg-VeryDarkBlue '><Link to="/Panel">Ver precios</Link></button>
+          <p className='mb-10 text-[13px] sm:text-[17px] '>Inicia sesion para acceder a tu cuenta.</p>
+          
+          <button className='bg-cyan-900 w-[170px] h-[40px] rounded-[10px]  text-OffWhite hover:bg-VeryDarkBlue '><Link to="/Panel">Usuario</Link></button>
+          <button className='mt-5 bg-cyan-900 w-[170px] h-[40px] rounded-[10px]  text-OffWhite hover:bg-VeryDarkBlue '><Link to="/Panel">Socio mensajero</Link></button>
+          
         
         </div>
       </div>

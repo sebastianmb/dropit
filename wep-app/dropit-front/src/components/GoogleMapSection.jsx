@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { DirectionsRenderer, GoogleMap, Marker, MarkerF, OverlayView, useJsApiLoader } from '@react-google-maps/api';
 import { SourceContext } from "../context/SourceContext.js"
 import { DestinationContext } from '../context/DestinationContext.js';
+import { PickLocationContext } from '../context/PickLocationContext.js';
 
 import locationIcon from '../assets/images/location.png';
 import destinationIcon from '../assets/images/destination.png';
@@ -19,7 +20,7 @@ const containerStyle = {
 
 function GoogleMapSection() {
 
-  const [selectedLocation, setSelectedLocation] = useState(null);
+  const {pickLocation, setPickLocation} = useContext(PickLocationContext);
 
 
   const { source, setSource } = useContext(SourceContext);
@@ -119,12 +120,14 @@ function GoogleMapSection() {
       }}
 
 
-      onClick={(e) => setSelectedLocation({ lat: e.latLng.lat(), lng: e.latLng.lng() })}
+      onClick={(e) => setPickLocation({ lat: e.latLng.lat(), lng: e.latLng.lng() })}
 
+      
 
     >
+      {console.log(pickLocation)}
 
-      {selectedLocation && <Marker position={selectedLocation} />}
+      {pickLocation && <Marker position={pickLocation} />}
       
       {source.length != [] ? <Marker
         position={{ lat: source.lat, lng: source.lng }}
