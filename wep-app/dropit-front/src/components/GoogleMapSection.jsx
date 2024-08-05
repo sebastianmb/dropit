@@ -127,7 +127,7 @@ function GoogleMapSection() {
     >
       {console.log(pickLocation)}
 
-      {pickLocation && <Marker position={pickLocation} />}
+      {/*pickLocation && <Marker position={pickLocation} />*/}
       
       {source.length != [] ? <Marker
         position={{ lat: source.lat, lng: source.lng }}

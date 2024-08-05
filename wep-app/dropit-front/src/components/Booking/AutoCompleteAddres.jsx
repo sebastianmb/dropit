@@ -5,6 +5,8 @@ import destinationIcon from '../../assets/images/destination.png'; // Ruta al ar
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import { SourceContext } from '../../context/SourceContext.js';
 import { DestinationContext } from '../../context/DestinationContext.js';
+import agregar from '../../assets/images/agregar.png'; // Ruta al archivo SVG del icono de ubicación
+import Waypoints from './Waypoints.jsx';
 
 function AutoCompleteAddres() {
 
@@ -14,6 +16,17 @@ function AutoCompleteAddres() {
     const { source, setSource } = useContext(SourceContext);
     const { destination, setDestination } = useContext(DestinationContext);
 
+    
+
+    const [componentes, setComponentes] = useState([]);
+
+    const agregarComponente = () => {
+        // Genera un nuevo componente (puedes personalizar esto según tus necesidades)
+        const nuevoComponente = <Waypoints key={componentes.length} />;
+
+        // Agrega el nuevo componente a la lista
+        setComponentes([...componentes, nuevoComponente]);
+    };
 
 
 
@@ -23,7 +36,7 @@ function AutoCompleteAddres() {
         const service = new google.maps.places.PlacesService(document.createElement('div'));
         service.getDetails({ placeId }, (place, status) => {
             if (status === 'OK' && place.geometry && place.geometry.location) {
-                
+
                 const newSource = {
                     lat: place.geometry.location.lat(),
                     lng: place.geometry.location.lng(),
@@ -33,7 +46,7 @@ function AutoCompleteAddres() {
 
                 setSource(newSource)
                 // Ahora puedes acceder a source y destination aquí
-                
+
             }
         })
 
@@ -44,7 +57,7 @@ function AutoCompleteAddres() {
         const service = new google.maps.places.PlacesService(document.createElement('div'));
         service.getDetails({ placeId }, (place, status) => {
             if (status === 'OK' && place.geometry && place.geometry.location) {
-                
+
                 const newDestination = {
                     lat: place.geometry.location.lat(),
                     lng: place.geometry.location.lng(),
@@ -54,13 +67,15 @@ function AutoCompleteAddres() {
 
                 setDestination(newDestination)
                 // Ahora puedes acceder a source y destination aquí
-                
+
             }
         })
 
     }
 
-
+    const handleClick = () => {
+        setMostrarComponente(true);
+    };
 
 
     return (
@@ -94,7 +109,13 @@ function AutoCompleteAddres() {
                             }
                         }}
                     />
+                    <button onClick={agregarComponente}>
+                        <img src={agregar} alt="Agregar" className="h-5 w-6" />
+                    </button>
                 </div>
+                {mostrarComponente && componentes.map((componente, index) => (
+                    <div key={index}>{componente}</div>
+                ))}
 
             </div>
             <div className='mt-3'>
@@ -110,7 +131,7 @@ function AutoCompleteAddres() {
                                 getLatAndLngDestination(place);
                                 setValueDestination(place)
                             },
-                            placeholder: 'Pickup Location',
+                            placeholder: 'Pickup Destination',
                             isClearable: true,
                             className: 'w-full',
                             components: {
@@ -128,6 +149,10 @@ function AutoCompleteAddres() {
                 </div>
 
             </div>
+
+
+
+
         </div>
     )
 }
