@@ -17,7 +17,7 @@ function AutoCompleteAddres() {
     const { destination, setDestination } = useContext(DestinationContext);
 
     
-
+    
     const [componentes, setComponentes] = useState([]);
 
     const agregarComponente = () => {
@@ -73,9 +73,7 @@ function AutoCompleteAddres() {
 
     }
 
-    const handleClick = () => {
-        setMostrarComponente(true);
-    };
+   
 
 
     return (
@@ -113,7 +111,7 @@ function AutoCompleteAddres() {
                         <img src={agregar} alt="Agregar" className="h-5 w-6" />
                     </button>
                 </div>
-                {mostrarComponente && componentes.map((componente, index) => (
+                { componentes.map((componente, index) => (
                     <div key={index}>{componente}</div>
                 ))}
 
