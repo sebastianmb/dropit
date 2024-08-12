@@ -8,16 +8,19 @@ import { DestinationContext } from "../context/DestinationContext.js"
 import GoogleMapSection from "./GoogleMapSection.jsx"
 import { LoadScript } from "@react-google-maps/api"
 import { PickLocationContext } from "../context/PickLocationContext.js"
+import { WaypointContext } from "../context/WaypointsContext.js"
 
 
 export const RideBookingPanel = ({ }) => {
     const [source, setSource]=useState([]);
     const [destination, setDestination]=useState([]);
     const [pickLocation, setPickLocation]=useState([]);
+    const [waypoint, setWaypoint]=useState([]);
     return (
         <SourceContext.Provider value={{source,setSource}}>
             <DestinationContext.Provider value={{destination,setDestination}}>
             <PickLocationContext.Provider value={{pickLocation,setPickLocation}}>
+            <WaypointContext.Provider value={{waypoint, setWaypoint}}>
                 <LoadScript 
                 libraries={['places']}
                 googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_APIKEY}>
@@ -34,6 +37,7 @@ export const RideBookingPanel = ({ }) => {
             
         </main>
         </LoadScript>
+        </WaypointContext.Provider>
         </PickLocationContext.Provider>
         </DestinationContext.Provider>
         </SourceContext.Provider>
