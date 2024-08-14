@@ -3,6 +3,7 @@ import { DirectionsRenderer, GoogleMap, Marker, MarkerF, OverlayView, useJsApiLo
 import { SourceContext } from "../context/SourceContext.js"
 import { DestinationContext } from '../context/DestinationContext.js';
 import { PickLocationContext } from '../context/PickLocationContext.js';
+import { WaypointContext } from '../context/WaypointsContext.js';
 
 import locationIcon from '../assets/images/location.png';
 import destinationIcon from '../assets/images/destination.png';
@@ -25,6 +26,7 @@ function GoogleMapSection() {
 
   const { source, setSource } = useContext(SourceContext);
   const { destination, setDestination } = useContext(DestinationContext)
+  const {waypoint, setWaypoint} =useContext(WaypointContext)
 
   const [center, setCenter] = useState({
     lat: 4.638662268473553,
@@ -65,7 +67,7 @@ function GoogleMapSection() {
     }
   }, [destination])
 
-
+ 
 
   const [map, setMap] = React.useState(null)
   const [directionRoutePoints, setDirectionRoutePoints] = useState([]);
@@ -75,17 +77,23 @@ function GoogleMapSection() {
     DirectionsService.route({
       origin: { lat: source.lat, lng: source.lng },
       destination: { lat: destination.lat, lng: destination.lng },
+      waypoints: waypoint.map((wp) => ({
+        location: wp.name,
+        stopover: true,
+      })),
       travelMode: google.maps.TravelMode.DRIVING
     }, (result, status) => {
       if (status === google.maps.DirectionsStatus.OK) {
 
 
         setDirectionRoutePoints(result)
+        
 
 
       }
       else {
         console.error('Error')
+        
 
       }
     })
