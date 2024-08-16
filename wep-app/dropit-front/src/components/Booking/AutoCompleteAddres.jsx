@@ -16,14 +16,18 @@ function AutoCompleteAddres() {
     const { source, setSource } = useContext(SourceContext);
     const { destination, setDestination } = useContext(DestinationContext);
 
+    const [counter, setCounter] = useState(1);
+
     
     
     const [componentes, setComponentes] = useState([]);
 
     const agregarComponente = () => {
         // Genera un nuevo componente (puedes personalizar esto según tus necesidades)
-        const nuevoComponente = <Waypoints key={componentes.length} />;
-
+        const nuevoComponente = <Waypoints key={componentes.length} cantidad ={counter} />;
+        
+            setCounter((prevCounter) => prevCounter + 1);
+          
         // Agrega el nuevo componente a la lista
         setComponentes([...componentes, nuevoComponente]);
     };

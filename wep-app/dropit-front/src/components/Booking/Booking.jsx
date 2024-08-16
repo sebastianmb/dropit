@@ -9,6 +9,8 @@ import CarListOption from './CarListOption';
 
 import { DateTimePicker } from '@mui/x-date-pickers';
 
+import mas from '../../assets/images/mas.png';
+
 
 
 export function Booking() {
@@ -35,6 +37,10 @@ export function Booking() {
         <div className='border-[1px] p-5 rounded-md' style={{ height: screenHight }}>
           <DateTimePicker label="Escoja fecha y hora" />
           <AutoCompleteAddres />
+          {destination.length != [] ? <button className='flex items-center gap-4 bg-white p-5'>
+            <img src={mas} alt="mas" className="h-3 w-3" />
+            <span className=' text-[12px]'>Agregar datos de la persona que recibe</span>
+          </button> : null}
 
           <button className='p-3 bg-cyan-900 w-full mt-5 text-white rounded-lg'
             onClick={() => calculateDistance()}

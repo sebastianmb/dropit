@@ -5,10 +5,10 @@ import { WaypointContext } from '../../context/WaypointsContext';
 
 
 
-function Waypoints() {
+function Waypoints({cantidad}) {
 
   const { waypoint, setWaypoint } = useContext(WaypointContext);
-  const [counter, setCounter] = useState(1);
+  
 
   const getNameAddress = (place) => {
 
@@ -18,8 +18,10 @@ function Waypoints() {
       if (status === 'OK' && place.geometry && place.geometry.location) {
 
         const newWaypoint = {
-
+          lat: place.geometry.location.lat(),
+          lng: place.geometry.location.lng(),
           name: place.formatted_address,
+          label: place.name
 
         };
 
@@ -35,9 +37,7 @@ function Waypoints() {
     console.log('Contenido de waypoint:', waypoint);
   }, [waypoint]);
 
-  const incrementCounter = () => {
-    setCounter((prevCounter) => prevCounter + 1);
-  };
+  
 
   return (
     <div className='mt-3'>
@@ -45,7 +45,7 @@ function Waypoints() {
 
         <div className='flex items-center gap-4 bg-white p-1 border-[1px] w-full rounded-md outline-none
                             focus:border-cyan-900'>
-          <div className="bg-cyan-900 h- w-4 text-white flex items-center justify-center text-[16px] rounded-md">{counter}</div>
+          <div className="bg-cyan-900 h- w-4 text-white flex items-center justify-center text-[16px] rounded-md">{cantidad}</div>
 
           <GooglePlacesAutocomplete
 

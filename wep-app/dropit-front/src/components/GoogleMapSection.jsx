@@ -21,12 +21,12 @@ const containerStyle = {
 
 function GoogleMapSection() {
 
-  const {pickLocation, setPickLocation} = useContext(PickLocationContext);
+  const { pickLocation, setPickLocation } = useContext(PickLocationContext);
 
 
   const { source, setSource } = useContext(SourceContext);
   const { destination, setDestination } = useContext(DestinationContext)
-  const {waypoint, setWaypoint} =useContext(WaypointContext)
+  const { waypoint, setWaypoint } = useContext(WaypointContext)
 
   const [center, setCenter] = useState({
     lat: 4.638662268473553,
@@ -67,7 +67,7 @@ function GoogleMapSection() {
     }
   }, [destination])
 
- 
+
 
   const [map, setMap] = React.useState(null)
   const [directionRoutePoints, setDirectionRoutePoints] = useState([]);
@@ -87,13 +87,13 @@ function GoogleMapSection() {
 
 
         setDirectionRoutePoints(result)
-        
+
 
 
       }
       else {
         console.error('Error')
-        
+
 
       }
     })
@@ -130,13 +130,13 @@ function GoogleMapSection() {
 
       onClick={(e) => setPickLocation({ lat: e.latLng.lat(), lng: e.latLng.lng() })}
 
-      
+
 
     >
       {console.log(pickLocation)}
 
       {/*pickLocation && <Marker position={pickLocation} />*/}
-      
+
       {source.length != [] ? <Marker
         position={{ lat: source.lat, lng: source.lng }}
         icon={{
@@ -179,6 +179,29 @@ function GoogleMapSection() {
         </OverlayView>
 
       </Marker> : null}
+
+      {waypoint.length !== 0 && waypoint.map((waypoint, index) => (
+        <Marker
+          key={index}
+          position={{ lat: waypoint.lat, lng: waypoint.lng }}
+          icon={{
+            url: locationIcon,
+            scaledSize: {
+              width: 20,
+              height: 20
+            }
+          }}
+        >
+          <OverlayView
+            position={{ lat: waypoint.lat, lng: waypoint.lng }}
+            mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+          >
+            <div className='p-2 bg-white font-bold inline-block'>
+              <p className='text-black text-[18px]'>{waypoint.label}</p>
+            </div>
+          </OverlayView>
+        </Marker>
+      ))}
 
       <DirectionsRenderer
         directions={directionRoutePoints}
