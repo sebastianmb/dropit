@@ -10,6 +10,7 @@ import CarListOption from './CarListOption';
 import { DateTimePicker } from '@mui/x-date-pickers';
 
 import mas from '../../assets/images/mas.png';
+import InfoPackage from './InfoPackage';
 
 
 
@@ -41,7 +42,7 @@ export function Booking() {
             <img src={mas} alt="mas" className="h-3 w-3" />
             <span className=' text-[12px]'>Agregar datos de la persona que recibe</span>
           </button> : null}
-
+          <InfoPackage/>
           <button className='p-3 bg-cyan-900 w-full mt-5 text-white rounded-lg'
             onClick={() => calculateDistance()}
           >Search</button>
