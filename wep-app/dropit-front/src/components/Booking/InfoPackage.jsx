@@ -5,6 +5,7 @@ function InfoPackage() {
     const [mensaje, setMensaje] = useState("");
     const [tamaño, setTamaño] = useState("");
     const [peso, setPeso] = useState("");
+    const [valor, setValor] = useState("");
 
     const handleChange = (event) => {
         // Lógica para manejar el cambio en el textarea
@@ -12,7 +13,7 @@ function InfoPackage() {
     };
     return (
         <div>
-            <div className='p-5'>
+            <div className='pt-5'>
                 <h2 className=' text-[16px] font-semibold italic'>Información del paquete</h2>
 
                 <div className='relative'>
@@ -21,21 +22,35 @@ function InfoPackage() {
                         <textarea className='w-full'
                             name="mensaje"
                             value={mensaje}
+                            placeholder='Que debe hacer el mensajero'
                             onChange={handleChange}
                         />
                     </div>
-                    <select name="tamaño" value={tamaño} onChange={handleChange}>
-                        <option value="pequeño">Pequeño</option>
-                        <option value="mediano">Mediano</option>
-                        <option value="grande">Grande</option>
-                    </select>
+                    <div className='flex pt-5 items-center justify-between  bg-white'>
 
-                    <input
+                        <select className='border-[1px] rounded-md outline-none focus:border-cyan-900' name="tamaño" value={tamaño} onChange={handleChange}>
+                            <option value="" disabled selected hidden>Tamaño</option>
+                            <option value="pequeño">Pequeño</option>
+                            <option value="mediano">Mediano</option>
+                            <option value="grande">Grande</option>
+                        </select>
+
+                        <input className='border-[1px] rounded-md outline-none focus:border-cyan-900'
+                            type="number"
+                            name="valor"
+                            placeholder='Valor de clarado*'
+                            value={valor}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <input className='mt-5 border-[1px] rounded-md outline-none focus:border-cyan-900'
                         type="number"
                         name="peso"
+                        placeholder='Peso en gramos*'
                         value={peso}
                         onChange={handleChange}
                     />
+
 
                 </div>
 
