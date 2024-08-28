@@ -8,8 +8,24 @@ function InfoPackage() {
     const [valor, setValor] = useState("");
 
     const handleChange = (event) => {
-        // Lógica para manejar el cambio en el textarea
-        // Actualiza el estado o realiza otras acciones necesarias
+        const { name, value } = event.target;
+
+        switch (name) {
+            case "mensaje":
+                setMensaje(value);
+                break;
+            case "tamaño":
+                setTamaño(value);
+                break;
+            case "peso":
+                setPeso(value);
+                break;
+            case "valor":
+                setValor(value);
+                break;
+            default:
+                break;
+        }
     };
     return (
         <div>
@@ -19,7 +35,7 @@ function InfoPackage() {
                 <div className='relative'>
                     <div className='flex items-center gap-4 bg-white p-1 border-[1px] w-full rounded-md outline-none
                             focus:border-cyan-900'>
-                        <textarea className='w-full'
+                        <textarea className='w-full p-1'
                             name="mensaje"
                             value={mensaje}
                             placeholder='Que debe hacer el mensajero'
