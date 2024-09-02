@@ -1,3 +1,5 @@
+import Moto from "../src/assets/images/moto.png"
+
 export const CarListData=[
     {
         id:1,
@@ -5,7 +7,7 @@ export const CarListData=[
         seat:4,
         desc:'Affordable, Everyday rides',
         amount:1.1,
-        image:"https://links.papareact.com/3pn"
+        image:Moto
 
     },
     {
