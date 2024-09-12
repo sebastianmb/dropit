@@ -16,7 +16,7 @@ const createOrder = async (req, res) => {
             packageSize,
             declaredValue,
             packageWeight,
-            user: req.user._id
+            //user: req.user._id
         });
         await order.save();
         res.status(201).json({ message: 'Order created successfully', order });
@@ -29,4 +29,4 @@ const createOrder = async (req, res) => {
 
 
 
-module.exports = { createOrder, getOrders, getOrderById, updateOrder, deleteOrder };
+module.exports = { createOrder};
