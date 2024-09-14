@@ -1,7 +1,6 @@
 
 import React, { useContext, useState } from 'react';
-import { MainArticle } from '../MainArticle';
-import { Link } from 'react-router-dom';
+
 import AutoCompleteAddres from './AutoCompleteAddres';
 import { SourceContext } from '../../context/SourceContext';
 import { DestinationContext } from '../../context/DestinationContext';

@@ -9,7 +9,7 @@ export const CarListData=[
         amount:1.1,
         image:Moto
 
-    },
+    }/*,
     {
         id:2,
         name:'Comfort',
@@ -28,5 +28,5 @@ export const CarListData=[
         amount:1.9,
         image:"https://links.papareact.com/7pf"
 
-    },
+    },*/
 ]
