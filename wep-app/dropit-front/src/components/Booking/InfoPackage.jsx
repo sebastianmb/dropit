@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { InfoPackageContext } from './InfoPackageContext';
 
 function InfoPackage() {
 
-    const [mensaje, setMensaje] = useState("");
+    /*const [mensaje, setMensaje] = useState("");
     const [tamaño, setTamaño] = useState("");
     const [peso, setPeso] = useState("");
-    const [valor, setValor] = useState("");
+    const [valor, setValor] = useState("");*/
+
+    const { mensaje, setMensaje, tamaño, setTamaño, peso, setPeso, valor, setValor } = useContext(InfoPackageContext);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
