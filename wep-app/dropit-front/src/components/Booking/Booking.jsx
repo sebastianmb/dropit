@@ -10,6 +10,7 @@ import { DateTimePicker } from '@mui/x-date-pickers';
 
 import mas from '../../assets/images/mas.png';
 import InfoPackage from './InfoPackage';
+import SubmitButton from './SubmitButton';
 
 
 
@@ -83,6 +84,8 @@ export function Booking() {
             onClick={() => calculateDistance()}
           >Search</button>
           {distance ? <CarListOption distance={distance} /> : null}
+        
+          <SubmitButton/>
         </div>
 
       </div>

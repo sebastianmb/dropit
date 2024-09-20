@@ -1,9 +1,30 @@
-import React from 'react';
-import axios from 'axios';
+
+import React, { useContext } from 'react';
+import { InfoPackageContext } from '../../context/InfoPackageContext'; 
+import {SourceContext} from '../../context/SourceContext';
+import {DestinationContext} from '../../context/DestinationContext';
+import { WaypointContext } from '../../context/WaypointsContext';
 
 
-const SubmitButton = ({ source, destination, distance, formData }) => {
-    const handleSubmit = async () => {
+const SubmitButton = () => {
+
+  const { mensaje, tamaño, peso, valor } = useContext(InfoPackageContext);
+  const { source } = useContext(SourceContext);
+  const { destination} = useContext(DestinationContext);
+  const { waypoint} = useContext(WaypointContext);
+  
+
+  const handleSubmit = async () => {
+    console.log('Mensaje:', mensaje);
+    console.log('Tamaño:', tamaño);
+    console.log('Peso:', peso);
+    console.log('Valor:', valor);
+    console.log('Origen', source);
+    console.log('Destino', destination);
+    console.log('Waypoints', waypoint)
+  }
+  
+    /*const handleSubmit = async () => {
       try {
         const response = await axios.post('URL_DE_TU_API', {
           source,
@@ -15,7 +36,7 @@ const SubmitButton = ({ source, destination, distance, formData }) => {
       } catch (error) {
         console.error('Error al crear el pedido:', error);
       }
-    };
+    };*/
   
     return (
       <button className='p-3 bg-cyan-900 w-full mt-5 text-white rounded-lg' onClick={handleSubmit}>

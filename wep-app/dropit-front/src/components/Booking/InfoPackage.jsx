@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { InfoPackageContext } from './InfoPackageContext';
+import React, { useState,useContext } from 'react';
+import { InfoPackageContext } from '../../context/InfoPackageContext.jsx';
 
 function InfoPackage() {
 
