@@ -4,9 +4,10 @@ import { InfoPackageContext } from '../../context/InfoPackageContext';
 import {SourceContext} from '../../context/SourceContext';
 import {DestinationContext} from '../../context/DestinationContext';
 import { WaypointContext } from '../../context/WaypointsContext';
+import dayjs from 'dayjs';
 
 
-const SubmitButton = () => {
+const SubmitButton = ({date}) => {
 
   const { mensaje, tamaño, peso, valor } = useContext(InfoPackageContext);
   const { source } = useContext(SourceContext);
@@ -15,6 +16,8 @@ const SubmitButton = () => {
   
 
   const handleSubmit = async () => {
+    const formattedDate = date ? dayjs(date).format('YYYY-MM-DD HH:mm:ss') : 'null';
+    console.log('Fecha: ', formattedDate);
     console.log('Mensaje:', mensaje);
     console.log('Tamaño:', tamaño);
     console.log('Peso:', peso);

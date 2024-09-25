@@ -7,6 +7,7 @@ import { DestinationContext } from '../../context/DestinationContext';
 import CarListOption from './CarListOption';
 
 import { DateTimePicker } from '@mui/x-date-pickers';
+import dayjs from 'dayjs';
 
 import mas from '../../assets/images/mas.png';
 import InfoPackage from './InfoPackage';
@@ -22,6 +23,8 @@ export function Booking() {
   const [distance, setDistance] = useState();
 
   const [showForm, setShowForm] = useState(false);
+  const [date, setDate] = useState(dayjs(null));
+
 
   const handleButtonClick = () => {
     setShowForm(true);
@@ -42,7 +45,9 @@ export function Booking() {
         <h2 className=' text-[20px] font-semibold'>Get a ride</h2>
 
         <div className='border-[1px] p-5 rounded-md' >
-          <DateTimePicker label="Escoja fecha y hora" />
+          <DateTimePicker label="Escoja fecha y hora"
+            value={date}
+            onChange={(newValue) => setDate(newValue)} />
           <AutoCompleteAddres />
           {destination.length != [] ? <button className='flex items-center gap-4 bg-white p-5' onClick={handleButtonClick}>
             <img src={mas} alt="mas" className="h-3 w-3" />
@@ -85,7 +90,7 @@ export function Booking() {
           >Search</button>
           {distance ? <CarListOption distance={distance} /> : null}
         
-          <SubmitButton/>
+          <SubmitButton date={date}/>
         </div>
 
       </div>
