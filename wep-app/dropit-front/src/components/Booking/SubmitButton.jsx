@@ -5,11 +5,13 @@ import {SourceContext} from '../../context/SourceContext';
 import {DestinationContext} from '../../context/DestinationContext';
 import { WaypointContext } from '../../context/WaypointsContext';
 import dayjs from 'dayjs';
+import { useUser } from "@clerk/clerk-react";
 
 
-const SubmitButton = ({date}) => {
+const SubmitButton = ({date, formData}) => {
 
   const { mensaje, tamaño, peso, valor } = useContext(InfoPackageContext);
+  const { isSignedIn, user, isLoaded } = useUser()
   const { source } = useContext(SourceContext);
   const { destination} = useContext(DestinationContext);
   const { waypoint} = useContext(WaypointContext);
@@ -24,7 +26,9 @@ const SubmitButton = ({date}) => {
     console.log('Valor:', valor);
     console.log('Origen', source);
     console.log('Destino', destination);
-    console.log('Waypoints', waypoint)
+    console.log('Waypoints', waypoint);
+    console.log('Formulario: ', formData);
+    console.log('Usuario:', user.id);
   }
   
     /*const handleSubmit = async () => {

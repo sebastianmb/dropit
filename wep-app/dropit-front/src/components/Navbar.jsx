@@ -1,10 +1,15 @@
-import { useState } from 'react'
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+import { useState, useEffect, useContext } from 'react'
+import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from "@clerk/clerk-react";
+//import { UserContext } from '../context/UserContext';
 
 import burgerMenu from '../assets/images/icon-menu.svg'
 import closeBtn from '../assets/images/icon-menu-close.svg'
 
 export const Navbar = () => {
+
+  //const { userapp, setUserapp } = useContext(UserContext);
+  //const clerkUser = useUser();
+
 
   const [menuClicked, setMenuClicked] = useState(true)
 

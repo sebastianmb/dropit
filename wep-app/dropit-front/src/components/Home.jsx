@@ -3,6 +3,7 @@ import { MainArticle } from "./MainArticle"
 import { NewContainer } from "./NewContainer"
 import { ArticlesContainer } from "./ArticlesContainer"
 
+
 import imageDesktop from '../assets/images/image-web-3-desktop-.jpg'
 
 
@@ -30,9 +31,11 @@ export function Home() {
 
         </div>
         <ArticlesContainer />
+        
        
         
       </main>
+
   
     
   )
