@@ -2,7 +2,7 @@ const Order = require('../models/Order');
 
 // Crear un nuevo pedido
 const createOrder = async (req, res) => {
-    const { pickupDateTime, pickupLocation, waypoints, deliveryDestination, recipientName, recipientPhone, recipientEmail, courierInstructions, packageSize, declaredValue, packageWeight } = req.body;
+    const { pickupDateTime, pickupLocation, waypoints, deliveryDestination, recipientName, recipientPhone, recipientEmail, courierInstructions, packageSize, declaredValue, packageWeight,userId } = req.body;
     try {
         const order = new Order({
             pickupDateTime,
@@ -16,7 +16,7 @@ const createOrder = async (req, res) => {
             packageSize,
             declaredValue,
             packageWeight,
-            //user: req.user._id
+            user:userId
         });
         await order.save();
         res.status(201).json({ message: 'Order created successfully', order });
