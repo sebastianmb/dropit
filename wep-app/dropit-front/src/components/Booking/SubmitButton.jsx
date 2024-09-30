@@ -1,55 +1,50 @@
-
 import React, { useContext } from 'react';
 import { InfoPackageContext } from '../../context/InfoPackageContext'; 
-import {SourceContext} from '../../context/SourceContext';
-import {DestinationContext} from '../../context/DestinationContext';
+import { SourceContext } from '../../context/SourceContext';
+import { DestinationContext } from '../../context/DestinationContext';
 import { WaypointContext } from '../../context/WaypointsContext';
 import dayjs from 'dayjs';
 import { useUser } from "@clerk/clerk-react";
+import axios from 'axios';
 
-
-const SubmitButton = ({date, formData}) => {
-
+const SubmitButton = ({ date, formData }) => {
   const { mensaje, tamaño, peso, valor } = useContext(InfoPackageContext);
-  const { isSignedIn, user, isLoaded } = useUser()
+  const { isSignedIn, user, isLoaded } = useUser();
   const { source } = useContext(SourceContext);
-  const { destination} = useContext(DestinationContext);
-  const { waypoint} = useContext(WaypointContext);
-  
+  const { destination } = useContext(DestinationContext);
+  const { waypoint } = useContext(WaypointContext);
 
   const handleSubmit = async () => {
-    const formattedDate = date ? dayjs(date).format('YYYY-MM-DD HH:mm:ss') : 'null';
-    console.log('Fecha: ', formattedDate);
-    console.log('Mensaje:', mensaje);
-    console.log('Tamaño:', tamaño);
-    console.log('Peso:', peso);
-    console.log('Valor:', valor);
-    console.log('Origen', source);
-    console.log('Destino', destination);
-    console.log('Waypoints', waypoint);
-    console.log('Formulario: ', formData);
-    console.log('Usuario:', user.id);
-  }
-  
-    /*const handleSubmit = async () => {
-      try {
-        const response = await axios.post('URL_DE_TU_API', {
-          source,
-          destination,
-          distance,
-          ...formData
-        });
-        console.log('Pedido creado:', response.data);
-      } catch (error) {
-        console.error('Error al crear el pedido:', error);
-      }
-    };*/
-  
-    return (
-      <button className='p-3 bg-cyan-900 w-full mt-5 text-white rounded-lg' onClick={handleSubmit}>
-        Crear Pedido
-      </button>
-    );
+    const formattedDate = date ? dayjs(date).format('YYYY-MM-DD HH:mm:ss') : null;
+    const payload = {
+      pickupDateTime: formattedDate,
+      pickupLocation: source,
+      waypoints: waypoint,
+      deliveryDestination: destination,
+      recipientName: formData.recipientName,
+      recipientPhone: formData.recipientPhone,
+      recipientEmail: formData.recipientEmail,
+      courierInstructions: mensaje,
+      packageSize: tamaño,
+      declaredValue: valor,
+      packageWeight: peso,
+      user: user.id
+    };
+    console.log('Payload:', payload);
+
+    try {
+      const response = await axios.post('http://localhost:3001/api/orders', payload);
+      console.log('Pedido creado:', response.data);
+    } catch (error) {
+      console.error('Error al crear el pedido:', error);
+    }
   };
-  
-  export default SubmitButton;
+
+  return (
+    <button className='p-3 bg-cyan-900 w-full mt-5 text-white rounded-lg' onClick={handleSubmit}>
+      Crear Pedido
+    </button>
+  );
+};
+
+export default SubmitButton;
