@@ -1,10 +1,17 @@
 const mongoose = require('mongoose');
 
+const locationSchema = new mongoose.Schema({
+  lat: Number,
+  lng: Number,
+  name: String,
+  label: String
+});
+
 const OrderSchema = new mongoose.Schema({
-  pickupDateTime: { type: Date, required: true }, // Fecha y hora de recogida
-  pickupLocation: { type: String, required: true }, // Origen
-  waypoints: [{ type: String, required: true }], // Lista de ubicaciones intermedias
-  deliveryDestination: { type: String, required: true }, // Destino
+  pickupDateTime: Date, // Fecha y hora de recogida
+  pickupLocation: locationSchema, // Origen
+  waypoints: [locationSchema], // Lista de ubicaciones intermedias
+  deliveryDestination: locationSchema, // Destino
   recipientName: { type: String, required: true }, // Nombre del destinatario
   recipientPhone: { type: String, required: true }, // Teléfono del destinatario
   recipientEmail: { type: String, required: true }, // Email del destinatario

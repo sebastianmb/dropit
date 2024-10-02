@@ -2,6 +2,7 @@
 
 const express = require("express");
 const app = express();
+const cors = require('cors');
 const connectDB = require('../config/db');
 const orderRoutes = require('../routes/orderRoutes');
 
@@ -19,6 +20,7 @@ require('dotenv').config();
 // Conectar a la base de datos
 connectDB();
 
+app.use(cors());
 // Usar las rutas de pedidos
 app.use('/api/orders', orderRoutes);
 
