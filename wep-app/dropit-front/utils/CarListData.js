@@ -3,10 +3,11 @@ import Moto from "../src/assets/images/moto.png"
 export const CarListData=[
     {
         id:1,
-        name:'Uber X',
-        seat:4,
-        desc:'Affordable, Everyday rides',
-        amount:1.1,
+        name:'Dropit',
+        //seat:4,
+        desc:'Seguimiento envio en tiempo real',
+        amount:13000,
+        add:7000,
         image:Moto
 
     }/*,

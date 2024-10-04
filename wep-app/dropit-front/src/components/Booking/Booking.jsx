@@ -21,6 +21,7 @@ export function Booking() {
   const { source, setSource } = useContext(SourceContext);
   const { destination, setDestination } = useContext(DestinationContext);
   const [distance, setDistance] = useState();
+  const [isSubmitActive, setIsSubmitActive] = useState(false);
 
   const [showForm, setShowForm] = useState(false);
   const [date, setDate] = useState(dayjs(null));
@@ -50,6 +51,7 @@ export function Booking() {
     )
     console.log(dist / 1000);
     setDistance(dist / 1000)
+    setIsSubmitActive(true); // Activar el botón de envío
   }
 
   return (
@@ -109,7 +111,7 @@ export function Booking() {
             >Search</button>
             {distance ? <CarListOption distance={distance} /> : null}
           
-            <SubmitButton date={date} formData={formData}/>
+            {isSubmitActive &&<SubmitButton date={date} formData={formData}/>}
         </div>
 
       </div>
