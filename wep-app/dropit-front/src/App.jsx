@@ -1,34 +1,26 @@
-import { Header } from "./components/Header"
-import { MainArticle } from "./components/MainArticle"
-import { NewContainer } from "./components/NewContainer"
-import { ArticlesContainer } from "./components/ArticlesContainer"
-import { Login } from "./components/Login"
-import { Home } from "./components/Home"
-
-
-import { Routes, Route } from "react-router-dom"
-
-import { RideBookingPanel } from "./components/RideBookingPanel"
-
+import { Home } from "./components/Home";
+import { Routes, Route } from "react-router-dom";
+import { RideBookingPanel } from "./components/RideBookingPanel";
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-
-
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { ClerkProvider } from '@clerk/clerk-react';
+import PrivateRoute from "./components/PrivateRoute";
 
 export function App() {
+  const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+
+  if (!PUBLISHABLE_KEY) {
+    throw new Error("Missing Publishable Key");
+  }
+
   return (
-    <>
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/login" element={<Login/>}/>
-        
-        <Route path="/Panel" element={<RideBookingPanel/>}/>
-
-        
-
-      </Routes>
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/panel" element={<PrivateRoute element={<RideBookingPanel />} />} />
+        </Routes>
       </LocalizationProvider>
-    </>
-  )
+    </ClerkProvider>
+  );
 }

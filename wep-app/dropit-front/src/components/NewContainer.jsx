@@ -17,11 +17,19 @@ export const NewContainer = () => {
         </div>
         <div className='flex flex-col  pt-2 '>
           <p className='mb-10 text-[13px] sm:text-[17px] '>Inicia sesion para acceder a tu cuenta.</p>
-          
-          <button className='bg-cyan-900 w-[170px] h-[40px] rounded-[10px]  text-OffWhite hover:bg-VeryDarkBlue '><Link to="/Panel">Usuario</Link></button>
-          <button className='mt-5 bg-cyan-900 w-[170px] h-[40px] rounded-[10px]  text-OffWhite hover:bg-VeryDarkBlue '><Link to="/Panel">Socio mensajero</Link></button>
-          
-        
+
+          <SignedOut>
+            <SignInButton mode='modal' redirectUrl='/Panel'>
+              <button className='bg-cyan-900 w-[170px] h-[40px] rounded-[10px] text-OffWhite hover:bg-VeryDarkBlue'>Usuario</button>
+            </SignInButton>
+            <SignInButton mode='modal' redirectUrl='/Panel'>
+              <button className='mt-5 bg-cyan-900 w-[170px] h-[40px] rounded-[10px] text-OffWhite hover:bg-VeryDarkBlue'>Socio mensajero</button>
+            </SignInButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+
         </div>
       </div>
     </aside>
