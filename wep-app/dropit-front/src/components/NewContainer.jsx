@@ -19,15 +19,18 @@ export const NewContainer = () => {
           <p className='mb-10 text-[13px] sm:text-[17px] '>Inicia sesion para acceder a tu cuenta.</p>
 
           <SignedOut>
-            <SignInButton mode='modal' redirectUrl='/Panel'>
+            <SignInButton mode='modal' forceRedirectUrl='/Panel'>
               <button className='bg-cyan-900 w-[170px] h-[40px] rounded-[10px] text-OffWhite hover:bg-VeryDarkBlue'>Usuario</button>
             </SignInButton>
-            <SignInButton mode='modal' redirectUrl='/Panel'>
+            <SignInButton mode='modal' forceRedirectUrl='/Panel'>
               <button className='mt-5 bg-cyan-900 w-[170px] h-[40px] rounded-[10px] text-OffWhite hover:bg-VeryDarkBlue'>Socio mensajero</button>
             </SignInButton>
           </SignedOut>
           <SignedIn>
-            <UserButton />
+            <Link to="/Panel" className='flex flex-col'>
+            <button className='bg-cyan-900 w-[170px] h-[40px] rounded-[10px] text-OffWhite hover:bg-VeryDarkBlue' >Usuario</button>
+            <button className='mt-5 bg-cyan-900 w-[170px] h-[40px] rounded-[10px] text-OffWhite hover:bg-VeryDarkBlue'>Socio mensajero</button>
+            </Link>
           </SignedIn>
 
         </div>

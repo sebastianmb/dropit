@@ -28,7 +28,8 @@ const SubmitButton = ({ date, formData }) => {
       packageSize: tamaño,
       declaredValue: valor,
       packageWeight: peso,
-      user: user.id
+      user: user.id,
+      status:'Pemdiente'
     };
     console.log('Payload:', payload);
 
