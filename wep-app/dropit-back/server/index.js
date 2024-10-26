@@ -3,7 +3,7 @@
 const express = require("express");
 const app = express();
 const cors = require('cors');
-const { ClerkExpressWithAuth } = require('@clerk/clerk-sdk-node');
+
 const connectDB = require('../config/db');
 const orderRoutes = require('../routes/orderRoutes');
 
@@ -14,10 +14,7 @@ const orderRoutes = require('../routes/orderRoutes');
 
 
 
-app.use(express.json()); // Middleware para parsear JSON
-const clerkMiddleware = ClerkExpressWithAuth({
-  secretKey: process.env.VITE_CLERK_PUBLISHABLE_KEY
-});
+
 
 require('dotenv').config();
 
@@ -32,14 +29,16 @@ app.use('/api/orders', orderRoutes);
 // Use the lax middleware that returns an empty auth object when unauthenticated
 app.get(
   '/panel',
-  clerkMiddleware({
-    // Add options here
-    // See the Middleware options section for more details
-  }),
-  (req, res) => {
-    res.json(req.auth)
+  (req, res, next) => {
+    clerkMiddleware({
+      // Opciones del middleware
+    })(req, res, next); // Asegurando que clerkMiddleware funcione como middleware de Express
   },
-)
+  (req, res) => {
+    res.json(req.auth); // Respondiendo con el objeto de autenticación
+  }
+);
+
 
 app.use((err, req, res, next) => {
   console.error(err.stack)
