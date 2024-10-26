@@ -29,7 +29,8 @@ const SubmitButton = ({ date, formData }) => {
       declaredValue: valor,
       packageWeight: peso,
       user: user.id,
-      status:'Pemdiente'
+      precioEnvio:(13000 + 7000*waypoint.length).toFixed(0),
+      status:'Pendiente'
     };
     console.log('Payload:', payload);
 
