@@ -6,7 +6,7 @@ const Order = require('../models/Order');
 
 // Crear un nuevo pedido
 const createOrder = async (req, res) => {
-    const { pickupDateTime, pickupLocation, waypoints, deliveryDestination, recipientName, recipientPhone, recipientEmail, courierInstructions, packageSize, declaredValue, packageWeight,user } = req.body;
+    const { pickupDateTime, pickupLocation, waypoints, deliveryDestination, recipientName, recipientPhone, recipientEmail, courierInstructions, packageSize, declaredValue, packageWeight,user,precioEnvio,status } = req.body;
     try {
         const order = new Order({
             pickupDateTime,
@@ -20,7 +20,9 @@ const createOrder = async (req, res) => {
             packageSize,
             declaredValue,
             packageWeight,
-            user
+            user,
+            precioEnvio, // Añadido precio de envío
+            status // Añadido estado del pedido
         });
         await order.save();
         res.status(201).json({ message: 'Order created successfully', order });
@@ -30,8 +32,21 @@ const createOrder = async (req, res) => {
     }
 };
 
+const getOrders = async (req, res) => {
+    try {
+        
+        console.log("User object:", req.auth); // Verifica el contenido del objeto de usuario
+        const userId = req.user.id; // Ajusta esto según tu implementación de autenticación
+        const orders = await Order.find({ user: userId }); // Filtra los pedidos por usuario
+        res.status(200).json(orders);
+    } catch (error) {
+        console.error('Error details:', error);
+        res.status(500).json({ message: 'Error al obtener los pedidos' });
+    }
+};
 
 
 
 
-module.exports = { createOrder};
+
+module.exports = { createOrder,getOrders};

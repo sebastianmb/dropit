@@ -20,6 +20,8 @@ const OrderSchema = new mongoose.Schema({
   declaredValue: { type: Number, required: true }, // Valor declarado
   packageWeight: { type: Number, required: true }, // Peso del paquete
   user: { type: String, required: true },
+  precioEnvio: { type: Number, required: true }, // Precio del envío
+  status: { type: String, default: 'Pendiente' }, // Estado del pedido
   createdAt: { type: Date, default: Date.now } // Fecha de creación
 });
 
