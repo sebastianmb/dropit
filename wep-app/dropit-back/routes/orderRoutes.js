@@ -1,26 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const { createOrder, getOrders, getOrderById, updateOrder, deleteOrder } = require('../controllers/orderController');
-const { ClerkExpressRequireAuth } = require('@clerk/clerk-sdk-node');
+const requireAuth = require('../middleware/requireAuth'); // Importa el middleware
 
 
 
-const clerkMiddleware = ClerkExpressRequireAuth({
-  apiKey: process.env.CLERK_API_KEY, // Clave pública
-  secretKey: process.env.CLERK_SECRET_KEY // Clave secreta
-});
-const customClerkMiddleware = (req, res, next) => {
-  clerkMiddleware(req, res, () => {
-      
-      console.log("User object after Clerk middleware:", req.auth); // Verifica el objeto de usuario
-      next();
-  });
-};
+// Define las rutas con el middleware de autenticación
 router.route('/')
-    .post(createOrder)
-    .get(customClerkMiddleware, getOrders);
+    .post(requireAuth, createOrder) // Solo permite crear si está autenticado
+    .get(requireAuth, getOrders);    // Solo permite obtener si está autenticado
 
-
-
-
+// Exporta el enrutador
 module.exports = router;

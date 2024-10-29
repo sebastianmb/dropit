@@ -34,17 +34,14 @@ const createOrder = async (req, res) => {
 
 const getOrders = async (req, res) => {
     try {
-        
-        console.log("User object:", req.auth); // Verifica el contenido del objeto de usuario
-        const userId = req.user.id; // Ajusta esto según tu implementación de autenticación
-        const orders = await Order.find({ user: userId }); // Filtra los pedidos por usuario
+        console.log("User ID:", req.user); // Muestra el ID del usuario autenticado
+        const orders = await Order.find({ user: req.user }); // Filtra los pedidos por usuario autenticado
         res.status(200).json(orders);
     } catch (error) {
         console.error('Error details:', error);
         res.status(500).json({ message: 'Error al obtener los pedidos' });
     }
 };
-
 
 
 
