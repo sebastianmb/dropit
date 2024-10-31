@@ -21,8 +21,8 @@ const OrdersList = ({ orders }) => {
                 {/* Información del pedido */}
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-semibold text-lg">{order.destination}</p>
-                    <p className="text-gray-500">Fecha: {order.date}</p>
+                    <p className="font-semibold text-lg">{order.deliveryDestination.label}</p>
+                    <p className="text-gray-500">Fecha: {order.pickupDateTime}</p>
                   </div>
                   <p className="font-semibold text-indigo-600">
                     {order.price} COP

@@ -2,20 +2,21 @@ import { NewArticle } from "./NewArticle"
 import locationIcon from '../assets/images/location.png'; // Ruta al archivo SVG del icono de ubicación
 import destinationIcon from '../assets/images/destination.png'; // Ruta al archivo SVG del icono de destino
 import { Link } from 'react-router-dom';
-import { SignedIn, SignedOut, SignInButton, UserButton,useAuth } from "@clerk/clerk-react";
+import { SignedIn, SignedOut, SignInButton, UserButton, useAuth, useSession } from "@clerk/clerk-react";
 
 
 
 
 
 export const NewContainer = () => {
-  const { getToken } = useAuth();
+  const { session } = useSession();
 
-    const handleGetToken = async () => {
-        const token = await getToken(); // Obtiene el token JWT
-        console.log("el token es el siguiente: ", token); // Muestra el token en la consola
-        // Puedes usar este token en tus peticiones
-    };
+  const handleGetSessionId = () => {
+    const sessionId = session?.id; // Esto obtiene el ID de la sesión directamente
+    console.log("El ID de la sesión es:", sessionId);
+  };
+
+  
   return (
     <aside className="py-[28px] px-[20px] text-cyan-900 flex-none mb-[60px] md:w-[350px] md:mb-0 lg:w-2/5 ">
       <div >
@@ -35,11 +36,11 @@ export const NewContainer = () => {
           </SignedOut>
           <SignedIn>
             <Link to="/Panel" className='flex flex-col'>
-            <button className='bg-cyan-900 w-[170px] h-[40px] rounded-[10px] text-OffWhite hover:bg-VeryDarkBlue' >Usuario</button>
-            <button className='mt-5 bg-cyan-900 w-[170px] h-[40px] rounded-[10px] text-OffWhite hover:bg-VeryDarkBlue'>Socio mensajero</button>
+              <button className='bg-cyan-900 w-[170px] h-[40px] rounded-[10px] text-OffWhite hover:bg-VeryDarkBlue' >Usuario</button>
+              <button className='mt-5 bg-cyan-900 w-[170px] h-[40px] rounded-[10px] text-OffWhite hover:bg-VeryDarkBlue'>Socio mensajero</button>
             </Link>
           </SignedIn>
-          <button onClick={handleGetToken}>Obtener Token</button>
+          <button onClick={handleGetSessionId}>Obtener Token</button>
         </div>
       </div>
     </aside>
