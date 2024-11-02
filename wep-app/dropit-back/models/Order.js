@@ -8,7 +8,7 @@ const locationSchema = new mongoose.Schema({
 });
 
 const OrderSchema = new mongoose.Schema({
-  pickupDateTime: Date, // Fecha y hora de recogida
+  pickupDateTime:  Date, // Fecha y hora de recogida
   pickupLocation: locationSchema, // Origen
   waypoints: [locationSchema], // Lista de ubicaciones intermedias
   deliveryDestination: locationSchema, // Destino

@@ -6,6 +6,7 @@ const Order = require('../models/Order');
 
 // Crear un nuevo pedido
 const createOrder = async (req, res) => {
+    console.log('Request Body:', req.body);
     const { pickupDateTime, pickupLocation, waypoints, deliveryDestination, recipientName, recipientPhone, recipientEmail, courierInstructions, packageSize, declaredValue, packageWeight,user,precioEnvio,status } = req.body;
     try {
         const order = new Order({

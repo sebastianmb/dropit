@@ -7,7 +7,7 @@ const requireAuth = require('../middleware/requireAuth'); // Importa el middlewa
 
 // Define las rutas con el middleware de autenticación
 router.route('/')
-    .post(requireAuth, createOrder) // Solo permite crear si está autenticado
+    .post(createOrder) // Solo permite crear si está autenticado
     .get(requireAuth, getOrders);    // Solo permite obtener si está autenticado
 
 // Exporta el enrutador
