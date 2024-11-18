@@ -4,15 +4,16 @@ import { SourceContext } from '../../context/SourceContext';
 import { DestinationContext } from '../../context/DestinationContext';
 import { WaypointContext } from '../../context/WaypointsContext';
 import dayjs from 'dayjs';
-import { useUser } from "@clerk/clerk-react";
+import { useUser, useSession } from "@clerk/clerk-react";
 import axios from 'axios';
 
 const SubmitButton = ({ date, formData }) => {
   const { mensaje, tamaño, peso, valor } = useContext(InfoPackageContext);
-  const { isSignedIn, user, isLoaded } = useUser();
+  const {  user } = useUser();
   const { source } = useContext(SourceContext);
   const { destination } = useContext(DestinationContext);
   const { waypoint } = useContext(WaypointContext);
+  const { session } = useSession()
 
   const handleSubmit = async () => {
     const formattedDate = date ? dayjs(date).format('YYYY-MM-DD HH:mm:ss') : null;

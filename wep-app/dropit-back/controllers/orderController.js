@@ -44,7 +44,24 @@ const getOrders = async (req, res) => {
     }
 };
 
+const deleteOrder = async (req, res) => {
+    const { id } = req.params; // Obtenemos el ID del pedido desde los parámetros de la URL
+    try {
+        // Busca el pedido por ID y asegura que pertenece al usuario autenticado
+        const order = await Order.findOneAndDelete({ _id: id, user: req.user });
+        
+        if (!order) {
+            return res.status(404).json({ message: 'Pedido no encontrado o no autorizado para eliminarlo' });
+        }
+        
+        res.status(200).json({ message: 'Pedido eliminado con éxito', order });
+    } catch (error) {
+        console.error('Error details:', error);
+        res.status(500).json({ message: 'Error al eliminar el pedido' });
+    }
+};
 
 
 
-module.exports = { createOrder,getOrders};
+
+module.exports = { createOrder,getOrders, deleteOrder};
