@@ -2,11 +2,7 @@ import React from 'react';
 
 const OrdersList = ({ orders, onDelete } ) => {
 
-  // Formatea la fecha para que sea más legible
-  const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-    return new Date(dateString).toLocaleDateString('es-ES', options);
-  };
+  console.log("las ordenes son: ",orders); // Verifica cómo se llama el ID en el objeto order
 
   return (
     <div className="p-4">
@@ -45,8 +41,9 @@ const OrdersList = ({ orders, onDelete } ) => {
                 </div>
                  {/* Botón eliminar solo si el estado es 'creado' o 'pendiente' */}
                  {["Pendiente"].includes(order.status) && (
+                  
                     <button
-                      onClick={() => onDelete(order.id)}
+                      onClick={() => onDelete(order._id)}
                       className="mt-2 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
                     >
                       Eliminar pedido

@@ -10,7 +10,7 @@ export function Envios() {
 
   useEffect(() => {
     if (session) {
-      
+
       const sessionId = session?.id; // Esto obtiene el ID de la sesión directamente
       console.log("El ID de la sesión es:", sessionId);
 
@@ -36,10 +36,15 @@ export function Envios() {
   // Eliminar pedido
   const deleteOrder = async (orderId) => {
     try {
-      const response = await fetch(`http://localhost:3000/orders/${orderId}`, {
+
+      const sessionId = session?.id; // Asegúrate de obtenerlo aquí
+      if (!sessionId) {
+        throw new Error('Sesión no encontrada');
+      }
+      const response = await fetch(`http://localhost:3001/api/orders/${orderId}`, {
         method: 'DELETE',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${sessionId}`,
           'Content-Type': 'application/json',
         },
       });
@@ -53,7 +58,7 @@ export function Envios() {
       alert('Pedido eliminado con éxito');
     } catch (error) {
       console.error('Error al eliminar el pedido:', error);
-      alert('Hubo un error al eliminar el pedido');
+      console.log("Orden con el siguiente id: ",orderId);
     }
   };
 
