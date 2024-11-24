@@ -1,9 +1,23 @@
 const express = require("express");
-const app = express();
+const { Server } = require('socket.io');
+const http = require('http');
+
+
+
+
 const cors = require('cors');
 const connectDB = require('../config/db');
 const orderRoutes = require('../routes/orderRoutes');
 require('dotenv').config();
+
+const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "*", // Configura los dominios permitidos
+    methods: ["GET", "POST"],
+  },
+});
 
 // Conectar a la base de datos
 connectDB();
@@ -21,8 +35,27 @@ app.use((err, req, res, next) => {
   res.status(500).send('Error interno del servidor');
 });
 
-const PORT = process.env.PORT || 3001;
+// WebSockets
+io.on('connection', (socket) => {
+  console.log('Nuevo cliente conectado:', socket.id);
 
-app.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`);
+  // Escuchar eventos personalizados (ejemplo)
+  socket.on('nuevoPedido', (data) => {
+    console.log('Evento nuevoPedido recibido:', data);
+
+    // Emitir una actualización a todos los clientes
+    io.emit('actualizarPedidos', data);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('Cliente desconectado:', socket.id);
+  });
+});
+
+
+
+// Inicialización del servidor
+const PORT = process.env.PORT || 3001;
+server.listen(PORT, () => {
+  console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });
