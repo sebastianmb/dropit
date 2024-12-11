@@ -79,15 +79,7 @@ const deleteOrder = async (req, res) => {
 
 const getAllOrders = async (req, res) => {
     try {
-        // Opcionalmente, puedes agregar filtros por estado u otros parámetros
-        const { status } = req.query;
-        const query = {};
-
-        if (status) {
-            query.status = status;
-        }
-
-        const orders = await Order.find(query); // Obtiene todos los pedidos que coincidan con el filtro
+        const orders = await Order.find(); // Devuelve todos los pedidos
         res.status(200).json(orders);
     } catch (error) {
         console.error('Error details:', error);
@@ -97,4 +89,4 @@ const getAllOrders = async (req, res) => {
 
 
 
-module.exports = { createOrder,getOrders, deleteOrder};
+module.exports = { createOrder,getOrders, deleteOrder, getAllOrders};
