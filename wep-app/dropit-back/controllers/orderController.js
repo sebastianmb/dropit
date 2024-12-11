@@ -36,7 +36,21 @@ const createOrder = async (req, res) => {
 const getOrders = async (req, res) => {
     try {
         console.log("User ID:", req.user); // Muestra el ID del usuario autenticado
-        const orders = await Order.find({ user: req.user }); // Filtra los pedidos por usuario autenticado
+
+
+        // Extrae el estado de los parámetros de consulta (query)
+        const { status } = req.query;
+
+        // Crea un objeto de consulta dinámico
+        const query = { user: req.user }; // Por defecto, filtra por el usuario autenticado
+
+        if (status) {
+            query.status = status; // Si se especifica un estado, lo agrega al filtro
+        }
+
+        const orders = await Order.find(query); // Filtra los pedidos por usuario autenticado
+
+
         res.status(200).json(orders);
     } catch (error) {
         console.error('Error details:', error);
@@ -61,6 +75,25 @@ const deleteOrder = async (req, res) => {
     }
 };
 
+//mobile
+
+const getAllOrders = async (req, res) => {
+    try {
+        // Opcionalmente, puedes agregar filtros por estado u otros parámetros
+        const { status } = req.query;
+        const query = {};
+
+        if (status) {
+            query.status = status;
+        }
+
+        const orders = await Order.find(query); // Obtiene todos los pedidos que coincidan con el filtro
+        res.status(200).json(orders);
+    } catch (error) {
+        console.error('Error details:', error);
+        res.status(500).json({ message: 'Error al obtener todos los pedidos' });
+    }
+};
 
 
 

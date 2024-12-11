@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { createOrder, getOrders, getOrderById, updateOrder, deleteOrder } = require('../controllers/orderController');
 const requireAuth = require('../middleware/requireAuth'); // Importa el middleware
-
+const validateCourierToken = require('../middleware/validateCourierToken');
 
 
 // Define las rutas con el middleware de autenticación
@@ -13,6 +13,10 @@ router.route('/')
 // Ruta para eliminar un pedido por ID
 router.route('/:id')
     .delete(requireAuth, deleteOrder); // Solo permite eliminar si está autenticado
+
+
+// Ruta para repartidores (consulta de todos los pedidos)
+router.get('/all-orders', validateCourierToken, getAllOrders);
 
 // Exporta el enrutador
 module.exports = router;
