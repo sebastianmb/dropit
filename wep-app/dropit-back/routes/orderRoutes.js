@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createOrder, getOrders, getOrderById, updateOrder, deleteOrder,getAllOrders } = require('../controllers/orderController');
+const { createOrder, getOrders, getOrderById, updateOrder, deleteOrder,getAllOrders,acceptOrder } = require('../controllers/orderController');
 const requireAuth = require('../middleware/requireAuth'); // Importa el middleware
 const validateCourierToken = require('../middleware/validateCourierToken');
 
@@ -18,6 +18,9 @@ router.route('/:id')
 // Ruta para repartidores (consulta de todos los pedidos)
 router.route('/all-orders')
     .get( validateCourierToken,getAllOrders);
+
+// Ruta para aceptar un pedido
+router.route('/accept-order/:id').post(validateCourierToken, acceptOrder);
 
 // Exporta el enrutador
 module.exports = router;

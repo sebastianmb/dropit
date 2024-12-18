@@ -88,5 +88,33 @@ const getAllOrders = async (req, res) => {
 };
 
 
+const acceptOrder = async (req, res) => {
+    const { id } = req.params; // ID del pedido
+    try {
+        // Busca el pedido por su ID
+        const order = await Order.findById(id);
 
-module.exports = { createOrder,getOrders, deleteOrder, getAllOrders};
+        if (!order) {
+            return res.status(404).json({ message: "Pedido no encontrado" });
+        }
+
+        // Cambia el estado del pedido a "Aceptado"
+        order.status = "Aceptado";
+        await order.save();
+
+        // Devuelve las coordenadas y detalles relevantes
+        res.status(200).json({
+            message: "Pedido aceptado",
+            data: {
+                pickupLocation: order.pickupLocation,
+                deliveryDestination: order.deliveryDestination,
+                waypoints: order.waypoints,
+            },
+        });
+    } catch (error) {
+        console.error("Error al aceptar el pedido:", error);
+        res.status(500).json({ message: "Error al aceptar el pedido" });
+    }
+};
+
+module.exports = { createOrder,getOrders, deleteOrder, getAllOrders, acceptOrder};
