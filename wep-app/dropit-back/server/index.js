@@ -8,6 +8,7 @@ const http = require('http');
 const cors = require('cors');
 const connectDB = require('../config/db');
 const orderRoutes = require('../routes/orderRoutes');
+const deliveryController = require('../controllers/deliveryController'); // Importa el controlador
 require('dotenv').config();
 
 const app = express();
@@ -37,21 +38,22 @@ app.use((err, req, res, next) => {
 
 // WebSockets
 io.on('connection', (socket) => {
-  console.log('Nuevo cliente conectado:', socket.id);
+  console.log('New client connected');
 
-  // Escuchar eventos personalizados (ejemplo)
-  socket.on('nuevoPedido', (data) => {
-    console.log('Evento nuevoPedido recibido:', data);
-
-    // Emitir una actualización a todos los clientes
-    io.emit('actualizarPedidos', data);
+  socket.on('updateLocation', async (data) => {
+      const { orderId, latitude, longitude } = data;
+      try {
+          const updatedDelivery = await deliveryController.updateCourierLocation(orderId, latitude, longitude);
+          io.emit('locationUpdated', updatedDelivery);
+      } catch (error) {
+          socket.emit('error', error.message);
+      }
   });
 
   socket.on('disconnect', () => {
-    console.log('Cliente desconectado:', socket.id);
+      console.log('Client disconnected');
   });
 });
-
 
 
 // Inicialización del servidor
